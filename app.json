@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "bingo-zion",
+    "slug": "bingo-zion",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "bingo-zion"
+}
