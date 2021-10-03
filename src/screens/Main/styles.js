@@ -28,13 +28,14 @@ export const ItemContainer = styled.View`
     align-items: center;
     justify-content: center;
     padding: 20px;
+    margin-bottom: 20px;
 `;
 
 export const Text = styled.Text`
     color: #fff;
     font-size: 24px;
     font-family: 'Poppins_600SemiBold';
-    font-size: 22px;
+    font-size: ${props => props.fontSize ? `${props.fontSize}px` : '22px' };
     text-align: center;
 `;
 

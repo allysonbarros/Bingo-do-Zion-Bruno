@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Vibration } from 'react-native';
+import { View, Vibration } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 import { useFonts, Poppins_400Regular, Poppins_600SemiBold, Poppins_800ExtraBold } from '@expo-google-fonts/poppins';
@@ -36,6 +36,7 @@ export default function Main() {
         setItems(
             [...shuffle(["Álbum de fotos", "Chocalho", "Macacão", "Banheira", "Amamentar", "Camiseta", "Canção de Ninar", "Escova de cabelo", "Chupeta", "Cotonete", "Colher", "Mamadeira", "Leite", "Mochila", "Trocador", "Mordedor", "Copo", "Babador", "Travesseiro", "Brinquedos", "Tapete", "Carrinho", "Termômetro", "Canguru", "Cadeirinha para carro", "Fraldas", "Papinha", "Porta-Chupeta", "Pratinho", "Meias"]), "Bebê"]
         );
+        setSelectedItem('');
     }, []);
 
     function shuffle(array) {
@@ -43,11 +44,10 @@ export default function Main() {
     }
 
     function handleSortear() {
-        Vibration.vibrate(0.3 * ONE_SECOND_IN_MS);
-
         const lastItem = items.shift();
         setSelectedItem(lastItem);
-
+        
+        Vibration.vibrate(0.3 * ONE_SECOND_IN_MS);
         Speech.speak(lastItem, { language: 'pt-BR'});
     }
 
@@ -60,13 +60,22 @@ export default function Main() {
                 <ImageBackground source={Background} resizeMode="cover" imageStyle={{ opacity: 0.3 }}>
                     <LogoImage source={Logo} />
                     
-                    <ItemContainer>
+                    <View style={{ width: '100%'}}>
                         { selectedItem != '' ? (
-                            <ItemText>{selectedItem}</ItemText>
+                            <View style={{ width: '100%'}}>
+                                <ItemContainer>
+                                    <ItemText>{selectedItem}</ItemText>
+                                </ItemContainer>
+                                <Text fontSize='18'>
+                                    {`Número de palavras\n restantes: ${ items.length }`}
+                                </Text>
+                            </View>
                         ) : (
-                            <Text>Clique no Botão "Sortear" para iniciar!</Text>
+                            <ItemContainer>
+                                <Text>Clique no Botão "Sortear" para iniciar!</Text>
+                            </ItemContainer>
                         )}
-                    </ItemContainer>
+                    </View>
 
                     <Button onPress={handleSortear} activeOpacity="0.8" disabled={items.length == 0}>
                         <ButtonText>Sortear</ButtonText>
