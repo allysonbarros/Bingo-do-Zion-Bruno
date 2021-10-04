@@ -77,7 +77,7 @@ export default function Main() {
                         )}
                     </View>
 
-                    <Button onPress={handleSortear} activeOpacity="0.8" disabled={items.length == 0}>
+                    <Button onPress={handleSortear} activeOpacity={0.8} disabled={items.length == 0}>
                         <ButtonText>Sortear</ButtonText>
                     </Button>
                 </ImageBackground>
