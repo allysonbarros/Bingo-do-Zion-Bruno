@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Vibration } from 'react-native';
+import { View, SafeAreaView, Vibration } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 import { useFonts, Poppins_400Regular, Poppins_600SemiBold, Poppins_800ExtraBold } from '@expo-google-fonts/poppins';
@@ -55,33 +55,35 @@ export default function Main() {
         return <AppLoading />;
     } else {
         return (
-            <Container>
-                <StatusBar style="light" background="#13243E" translucent />
-                <ImageBackground source={Background} resizeMode="cover" imageStyle={{ opacity: 0.3 }}>
-                    <LogoImage source={Logo} />
-                    
-                    <View style={{ width: '100%'}}>
-                        { selectedItem != '' ? (
-                            <View style={{ width: '100%'}}>
+            <SafeAreaView style={{ flex: 1, backgroundColor: '#13243E' }}>
+                <Container>
+                    <StatusBar style="light" background="#13243E" translucent />
+                    <ImageBackground source={Background} resizeMode="cover" imageStyle={{ opacity: 0.3 }}>
+                        <LogoImage source={Logo} />
+                        
+                        <View style={{ width: '100%'}}>
+                            { selectedItem != '' ? (
+                                <View style={{ width: '100%'}}>
+                                    <ItemContainer>
+                                        <ItemText>{selectedItem}</ItemText>
+                                    </ItemContainer>
+                                    <Text fontSize='18'>
+                                        {`Número de palavras\n restantes: ${ items.length }`}
+                                    </Text>
+                                </View>
+                            ) : (
                                 <ItemContainer>
-                                    <ItemText>{selectedItem}</ItemText>
+                                    <Text>Clique no Botão "Sortear" para iniciar!</Text>
                                 </ItemContainer>
-                                <Text fontSize='18'>
-                                    {`Número de palavras\n restantes: ${ items.length }`}
-                                </Text>
-                            </View>
-                        ) : (
-                            <ItemContainer>
-                                <Text>Clique no Botão "Sortear" para iniciar!</Text>
-                            </ItemContainer>
-                        )}
-                    </View>
+                            )}
+                        </View>
 
-                    <Button onPress={handleSortear} activeOpacity={0.8} disabled={items.length == 0}>
-                        <ButtonText>Sortear</ButtonText>
-                    </Button>
-                </ImageBackground>
-            </Container>
+                        <Button onPress={handleSortear} activeOpacity={0.8} disabled={items.length == 0}>
+                            <ButtonText>Sortear</ButtonText>
+                        </Button>
+                    </ImageBackground>
+                </Container>
+            </SafeAreaView>
         );
     }
 }
